@@ -2,9 +2,12 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: invitex
+  namespace: apps
 spec:
   serviceName: invitex
   replicas: 1
+  updateStrategy:
+    type: RollingUpdate
   selector:
     matchLabels:
       app: invitex
@@ -14,7 +17,7 @@ spec:
         app: invitex
     spec:
       imagePullSecrets:
-        - name: ghcr-pull-secret
+        - name: ghcr.io
       containers:
         - name: invitex
           image: ghcr.io/invitexbot/invitex:sha-b72b638
@@ -30,3 +33,29 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.labels['apps.kubernetes.io/pod-index']
+          startupProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - kill -0 1
+            periodSeconds: 10
+            failureThreshold: 36
+          readinessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - kill -0 1
+            periodSeconds: 15
+            timeoutSeconds: 2
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - kill -0 1
+            initialDelaySeconds: 120
+            periodSeconds: 30
+            timeoutSeconds: 2
+            failureThreshold: 3

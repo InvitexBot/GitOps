@@ -2,8 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: bannex
+  namespace: apps
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: bannex
@@ -13,13 +19,33 @@ spec:
         app: bannex
     spec:
       imagePullSecrets:
-        - name: ghcr-pull-secret
+        - name: ghcr.io
       containers:
         - name: bannex
           image: ghcr.io/invitexbot/bannex:sha-e2656b1
           imagePullPolicy: Always
           ports:
-            - containerPort: 7000
+            - name: http
+              containerPort: 7000
           envFrom:
             - secretRef:
                 name: bannex-env
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 5
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3
