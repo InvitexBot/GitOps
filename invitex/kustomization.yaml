@@ -1,8 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - deployment.yaml
-  - service.yaml
+- deployment.yaml
+- service.yaml
 images:
-  - name: ghcr.io/invitexbot/invitex
-    newTag: sha-b72b638
+- name: ghcr.io/invitexbot/invitex
+  newName: ghcr.io/invitexbot/invitex
+  newTag: sha-e581d4c
