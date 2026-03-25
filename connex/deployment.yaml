@@ -22,7 +22,7 @@ spec:
         - name: ghcr.io
       containers:
         - name: connex
-          image: ghcr.io/invitexbot/connex:sha-dfd0dab
+          image: ghcr.io/invitexbot/connex:placeholder
           imagePullPolicy: Always
           ports:
             - name: http

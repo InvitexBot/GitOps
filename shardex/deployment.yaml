@@ -22,7 +22,7 @@ spec:
         - name: ghcr.io
       containers:
         - name: shardex
-          image: ghcr.io/invitexbot/shardex:sha-9c4f797
+          image: ghcr.io/invitexbot/shardex:placeholder
           imagePullPolicy: Always
           ports:
             - name: http

@@ -22,7 +22,7 @@ spec:
         - name: ghcr.io
       containers:
         - name: bannex
-          image: ghcr.io/invitexbot/bannex:sha-e2656b1
+          image: ghcr.io/invitexbot/bannex:placeholder
           imagePullPolicy: Always
           ports:
             - name: http

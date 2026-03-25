@@ -20,7 +20,7 @@ spec:
         - name: ghcr.io
       containers:
         - name: invitex
-          image: ghcr.io/invitexbot/invitex:sha-b72b638
+          image: ghcr.io/invitexbot/invitex:placeholder
           imagePullPolicy: Always
           envFrom:
             - secretRef:
