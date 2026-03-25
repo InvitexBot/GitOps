@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: connex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: connex
+  template:
+    metadata:
+      labels:
+        app: connex
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      containers:
+        - name: connex
+          image: ghcr.io/invitexbot/connex:sha-dfd0dab
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - secretRef:
+                name: connex-env

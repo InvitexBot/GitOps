@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shardex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shardex
+  template:
+    metadata:
+      labels:
+        app: shardex
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      containers:
+        - name: shardex
+          image: ghcr.io/invitexbot/shardex:sha-9c4f797
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6000
+          envFrom:
+            - secretRef:
+                name: shardex-env

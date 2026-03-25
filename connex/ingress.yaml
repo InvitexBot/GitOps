@@ -1,0 +1,15 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: connex
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`connex.auxtal.xyz`)
+      kind: Rule
+      services:
+        - name: connex
+          port: 5000
+  tls:
+    certResolver: le

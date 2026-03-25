@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bannex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bannex
+  template:
+    metadata:
+      labels:
+        app: bannex
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      containers:
+        - name: bannex
+          image: ghcr.io/invitexbot/bannex:sha-e2656b1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 7000
+          envFrom:
+            - secretRef:
+                name: bannex-env

@@ -1,0 +1,15 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: shardex
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`shardex.auxtal.xyz`)
+      kind: Rule
+      services:
+        - name: shardex
+          port: 6000
+  tls:
+    certResolver: le

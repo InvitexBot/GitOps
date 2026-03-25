@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: invitex
+spec:
+  serviceName: invitex
+  replicas: 1
+  selector:
+    matchLabels:
+      app: invitex
+  template:
+    metadata:
+      labels:
+        app: invitex
+    spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      containers:
+        - name: invitex
+          image: ghcr.io/invitexbot/invitex:sha-b72b638
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: invitex-env
+          env:
+            # CLUSTER_ID is derived from the pod's ordinal index (0, 1, 2...).
+            # Requires Kubernetes 1.28+. If your cluster is older, remove this
+            # block and set CLUSTER_ID manually in invitex-env.
+            - name: CLUSTER_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['apps.kubernetes.io/pod-index']
