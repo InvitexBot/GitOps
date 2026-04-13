@@ -6,4 +6,4 @@ resources:
 images:
 - name: ghcr.io/invitexbot/invitex
   newName: ghcr.io/invitexbot/invitex
-  newTag: sha-e0eee31
+  newTag: sha-8ae1fa3
