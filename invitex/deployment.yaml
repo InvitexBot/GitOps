@@ -16,6 +16,7 @@ spec:
       labels:
         app: invitex
     spec:
+      terminationGracePeriodSeconds: 120
       imagePullSecrets:
         - name: ghcr.io
       containers:
