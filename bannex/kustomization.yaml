@@ -7,4 +7,4 @@ resources:
 images:
 - name: ghcr.io/invitexbot/bannex
   newName: ghcr.io/invitexbot/bannex
-  newTag: sha-da8db99
+  newTag: sha-cba638b
